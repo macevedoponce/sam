@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Te quiero muuuucho</title>
+  <style>
+    /* Estilos generales */
+    body {
+      font-family: 'Great Vibes', cursive;
+      background: linear-gradient(135deg, #ff7eb9, #ff758c);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      padding: 30px;
+      max-width: 400px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+      transform: rotate(45deg);
+      animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+      0% { transform: rotate(45deg) translateX(-100%); }
+      100% { transform: rotate(45deg) translateX(100%); }
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #ff6f61;
+      margin-bottom: 20px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .heart {
+      font-size: 3rem;
+      color: #ff6f61;
+      animation: beat 1s infinite;
+    }
+
+    @keyframes beat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    .button {
+      background: #ff6f61;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+      border: none;
+      font-size: 1rem;
+      margin-top: 20px;
+    }
+
+    .button:hover {
+      background: #ff4a3d;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      max-width: 90%;
+      width: 500px;
+      text-align: center;
+      position: relative;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #ff6f61;
+    }
+
+    /* Slider mejorado */
+    .slider {
+      margin-top: 20px;
+      position: relative;
+      width: 100%;
+      height: 400px; /* Altura fija para el slider */
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .slider-container {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      height: 100%;
+    }
+
+    .slider img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* Mantiene la proporción de la imagen */
+      flex-shrink: 0;
+    }
+
+    /* Controles del slider */
+    .slider-controls {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .slider-controls button {
+      background: #ff6f61;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .slider-controls button:hover {
+      background: #ff4a3d;
+    }
+
+    /* Reproductor de música */
+    .music-player {
+      margin-top: 20px;
+    }
+
+    .music-player audio {
+      width: 100%;
+    }
+
+    /* Flores animadas */
+    .flowers {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .flower {
+      position: absolute;
+      font-size: 2rem;
+      color: #ff6f61;
+      animation: fall 5s linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(100vh); }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Sandritaaaaaaaa 💖</h1>
+    <p>
+      Vienes siendo la personita favorita, la que alegra mis mañanas, tardes y noches 🤭. Cada momento a tu lado es como un regalito del universo que guardo en mi corazón 🥺. Te quiero muchiiiiiisimooooooo, pero muchiiiiiiiisimo muchiiiiiiiisimo muchiiiiiiiisimo 👉🏻👈🏻 más de lo que las palabras pueden expresar. 💕
+    </p>
+    <div class="heart">❤️</div>
+
+    <!-- Botón para abrir el modal -->
+    <button class="button" id="open-modal">Abrir sorpresa</button>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <span class="close-modal" id="close-modal">&times;</span>
+
+      <!-- Slider de imágenes -->
+      <div class="slider">
+        <div class="slider-container" id="slider-container">
+          <img src="src/img/1.jpg" alt="Foto 1">
+          <img src="src/img/3.jpg" alt="Foto 2">
+          <img src="src/img/2.jpg" alt="Foto 3">
+          <img src="src/img/4.jpg" alt="Foto 4">
+        </div>
+      </div>
+
+      <!-- Reproductor de música -->
+      <div class="music-player">
+        <audio id="music" controls autoplay>
+          <source src="src/music/1.mp3" type="audio/mpeg">
+          Tu navegador no soporta la reproducción de audio.
+        </audio>
+      </div>
+    </div>
+  </div>
+
+  <!-- Flores animadas -->
+  <div class="flowers">
+    <div class="flower" style="left: 10%; animation-delay: 0s;">🌸</div>
+    <div class="flower" style="left: 30%; animation-delay: 2s;">🌷</div>
+    <div class="flower" style="left: 50%; animation-delay: 4s;">🌼</div>
+    <div class="flower" style="left: 70%; animation-delay: 1s;">🌹</div>
+    <div class="flower" style="left: 90%; animation-delay: 3s;">🌻</div>
+  </div>
+
+  <script>
+    // JavaScript para manejar el modal, el slider y la música
+    const openModalButton = document.getElementById('open-modal');
+    const modal = document.getElementById('modal');
+    const closeModalButton = document.getElementById('close-modal');
+    const sliderContainer = document.getElementById('slider-container');
+    const musicPlayer = document.getElementById('music');
+
+    let currentSlide = 0;
+    const totalSlides = 4; // Número total de imágenes
+
+    // Función para cambiar de slide automáticamente
+    function autoSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      const slideWidth = sliderContainer.clientWidth;
+      sliderContainer.style.transform = `translateX(${-currentSlide * slideWidth}px)`;
+    }
+
+    // Iniciar el slider automático
+    let slideInterval = setInterval(autoSlide, 3000); // Cambia de slide cada 3 segundos
+
+    // Abrir modal
+    openModalButton.addEventListener('click', () => {
+      modal.style.display = 'flex';
+      musicPlayer.play(); // Reproducir música automáticamente
+    });
+
+    // Cerrar modal
+    closeModalButton.addEventListener('click', () => {
+      modal.style.display = 'none';
+      musicPlayer.pause(); // Pausar música al cerrar el modal
+    });
+
+    // Cerrar modal al hacer clic fuera del contenido
+    window.addEventListener('click', (event) => {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+        musicPlayer.pause(); // Pausar música al cerrar el modal
+      }
+    });
+  </script>
+</body>
+</html>
